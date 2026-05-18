@@ -1,0 +1,43 @@
+# Secrets and runtime state — never commit
+.env
+.env.*
+*.key
+*.pem
+secrets/
+auth.json
+auth.lock
+
+# Hermes runtime artifacts (the local install will populate these)
+.hermes/sessions/
+.hermes/state.db*
+.hermes/logs/
+.hermes/cache/
+.hermes/gateway.pid
+.hermes/gateway_state.json
+.hermes/.update_check
+.hermes/.skills_prompt_snapshot.json
+.hermes/models_dev_cache.json
+.hermes/channel_directory.json
+.hermes/bin/
+
+# OpenClaw runtime artifacts
+.openclaw/sessions/
+.openclaw/logs/
+.openclaw/state/
+.openclaw/credentials/
+.openclaw/openclaw.json.bak*
+.openclaw/openclaw.json.clobbered*
+.openclaw/openclaw.json.backup*
+.openclaw/lcm.db*
+
+# Raw pre-sanitization copies — never commit
+raw/
+*.raw
+*.original
+
+# macOS / editor
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/

@@ -1,0 +1,65 @@
+{
+  "_comment_": "Minimal ~/.openclaw/openclaw.json template. Replace every <ANGLE_BRACKET> placeholder before running `openclaw doctor`. The real config has many more keys — see https://docs.openclaw.ai for the full schema.",
+  "browser": {
+    "enabled": true,
+    "executablePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "openai-codex": {
+        "baseUrl": "https://chatgpt.com/backend-api/codex",
+        "api": "openai-codex-responses",
+        "timeoutSeconds": 300,
+        "models": [
+          {
+            "id": "gpt-5.5",
+            "name": "gpt-5.5",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 400000,
+            "contextTokens": 272000,
+            "maxTokens": 128000
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "primary",
+        "fallbacks": []
+      },
+      "workspace": "<HOME>/clawd",
+      "bootstrapMaxChars": 22000,
+      "compaction": {
+        "mode": "safeguard",
+        "keepRecentTokens": 24000,
+        "reserveTokensFloor": 20000,
+        "maxHistoryShare": 0.3,
+        "recentTurnsPreserve": 5,
+        "memoryFlush": {
+          "enabled": true,
+          "forceFlushTranscriptBytes": "4mb"
+        },
+        "truncateAfterCompaction": true,
+        "maxActiveTranscriptBytes": "4mb",
+        "notifyUser": true
+      },
+      "thinkingDefault": "high",
+      "timeoutSeconds": 900,
+      "maxConcurrent": 3,
+      "subagents": {
+        "maxConcurrent": 4
+      }
+    }
+  },
+  "approvedChannels": [
+    "telegram:<YOUR_TELEGRAM_CHAT_ID>"
+  ],
+  "operators": {
+    "primary": "<YOUR_TELEGRAM_CHAT_ID>"
+  }
+}

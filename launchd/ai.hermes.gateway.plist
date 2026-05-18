@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ai.hermes.gateway</string>
+
+    <!-- ProgramArguments: how to invoke the hermes-cli gateway. -->
+    <!-- Replace <HOME> with your actual home (e.g. /Users/you), -->
+    <!-- or use a wrapper script that resolves $HOME at runtime. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string><HOME>/hermes-agent/venv/bin/python</string>
+        <string>-m</string>
+        <string>hermes_cli.main</string>
+        <string>gateway</string>
+        <string>run</string>
+        <string>--replace</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string><HOME>/hermes-agent</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string><HOME>/hermes-agent/venv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>VIRTUAL_ENV</key>
+        <string><HOME>/hermes-agent/venv</string>
+        <key>HERMES_HOME</key>
+        <string><HOME>/.hermes</string>
+    </dict>
+
+    <!-- Start at login. -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Auto-restart on non-zero exit (crashes), but not on clean exit. -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string><HOME>/.hermes/logs/gateway.log</string>
+
+    <key>StandardErrorPath</key>
+    <string><HOME>/.hermes/logs/gateway.error.log</string>
+</dict>
+</plist>

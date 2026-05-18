@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Pattern: a deterministic shell job that runs nightly. -->
+    <!-- This is the kind of work that should NOT go through openclaw cron -->
+    <!-- (no LLM needed) but should NOT be in user crontab either (launchd -->
+    <!-- handles missed runs on sleep/wake cleanly; user cron does not). -->
+
+    <key>Label</key>
+    <string>com.example.daily-backup</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string><HOME>/tools/backup.sh</string>
+    </array>
+
+    <!-- Run at 04:23 every day. Off-the-hour intentionally (see scheduling notes). -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>4</integer>
+        <key>Minute</key>
+        <integer>23</integer>
+    </dict>
+
+    <!-- Don't restart on success; don't keep alive between runs. -->
+    <key>KeepAlive</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string><HOME>/.local/log/daily-backup.log</string>
+    <key>StandardErrorPath</key>
+    <string><HOME>/.local/log/daily-backup.error.log</string>
+</dict>
+</plist>

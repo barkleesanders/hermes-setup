@@ -1,0 +1,130 @@
+# ~/.hermes/config.yaml — example template
+#
+# Copy to ~/.hermes/config.yaml after `hermes-cli` writes its default,
+# then edit per the comments below. Anything in <ANGLE_BRACKETS> must be
+# replaced before the agent will run.
+#
+# Reference: https://github.com/NousResearch/hermes-agent
+
+model:
+  default: gpt-5.5
+  provider: openai-codex            # see custom_providers below
+  base_url: https://chatgpt.com/backend-api/codex
+  max_tokens: 65536
+fallback_providers: []
+
+toolsets:
+- hermes-cli
+
+agent:
+  max_turns: 90
+  tool_use_enforcement: auto
+  reasoning_effort: high
+
+terminal:
+  backend: local                    # local | docker | singularity | modal | daytona
+  cwd: .
+  timeout: 180
+  env_passthrough: []
+  docker_image: nikolaik/python-nodejs:python3.11-nodejs20
+  container_cpu: 1
+  container_memory: 5120
+  container_disk: 51200
+  container_persistent: true
+  docker_mount_cwd_to_workspace: false
+  persistent_shell: true
+
+browser:
+  inactivity_timeout: 120
+  command_timeout: 30
+  record_sessions: false
+  headless: true
+
+checkpoints:
+  enabled: true
+  max_snapshots: 50
+
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 20
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+
+display:
+  compact: false
+  personality: kawaii               # see hermes-cli docs for built-in personalities
+  resume_display: full
+  busy_input_mode: interrupt
+  show_reasoning: false
+  streaming: false
+  show_cost: false
+  skin: default
+  tool_progress: all
+
+privacy:
+  redact_pii: false                 # set true if you log sessions you'll share
+
+approvals:
+  mode: manual                      # manual | auto | allowlist
+  timeout: 60
+
+# Restrict which commands cron-mode agents can shell out to.
+# Replace the example paths with your own tool/workspace paths.
+command_allowlist:
+- $HOME/.openclaw/*
+- $HOME/clawd/.venv/bin/python
+- $HOME/clawd/scripts/*
+- /bin/*
+- /opt/homebrew/bin/*
+- /tmp/*
+- /usr/bin/*
+
+quick_commands: {}
+personalities: {}
+
+security:
+  redact_secrets: true
+  tirith_enabled: true              # bundled secrets sentinel
+  tirith_path: tirith
+  tirith_timeout: 5
+  tirith_fail_open: true
+  website_blocklist:
+    enabled: false
+    domains: []
+
+cron:
+  wrap_response: false
+
+mcp_servers:
+  # Example: peekaboo MCP for vision queries. Remove if you don't use it.
+  peekaboo:
+    command: /opt/homebrew/bin/peekaboo
+    args:
+    - mcp
+    env:
+      PEEKABOO_LOG_LEVEL: info
+      PEEKABOO_AI_PROVIDERS: openai/gpt-5.5
+
+session_reset:
+  mode: idle
+  idle_minutes: 10080               # 7 days
+
+custom_providers:
+- name: openai-codex
+  base_url: https://chatgpt.com/backend-api/codex
+  api_key: ''                       # populated by `hermes-cli auth login` — do NOT hardcode
+  api_mode: chat_completions
+
+streaming:
+  enabled: true
+  transport: edit
+  edit_interval: 0.3
+  buffer_threshold: 40
+
+_config_version: 10
