@@ -105,6 +105,10 @@ $EDITOR ~/.hermes/SOUL.md                      # set operator personality
 ./tools/hermes-doctor.sh                       # should be all green
 ```
 
+## What it actually runs
+
+Want to see what kinds of crons, tools, and skills this setup exercises in practice? See **[WHAT-IT-RUNS.md](./WHAT-IT-RUNS.md)** for a sanitized bucket-level inventory: cron categories, tool families, skill usage, and the deliberate boundaries (no money-moving, no auto-replies to outside parties, etc.).
+
 ## Related
 
 - **[NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)** — the upstream agent runtime this repo deploys.
